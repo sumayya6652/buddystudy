@@ -18,7 +18,8 @@ from typing import List, Dict, Any, Optional
 from datetime import datetime
 
 # =========================
-# OpenAI client (with fallback to hard-coded key)
+# OpenAI clien
+#  (with fallback to hard-coded key)
 # =========================
 OPENAI_MODEL_DEFAULT = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 OPENAI_API_KEY_HARDCODED = ""   # <- put your key here for local use
