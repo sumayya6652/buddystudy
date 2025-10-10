@@ -23,38 +23,27 @@ st.set_page_config(page_title="StudyMate — NLP Toolkit", page_icon="🧠", lay
 load_css()
 
 # ---------------- TTS helpers ----------------
+# --- Text-to-Speech (Streamlit-safe using gTTS) ---
+import tempfile, os, streamlit as st
+from gtts import gTTS
+
 def tts_say(text: str, filename_prefix: str = "voice"):
-    """gTTS → MP3 (simple)"""
+    """Generate an MP3 using gTTS and return its path (works on Streamlit Cloud)."""
     if not text or not text.strip():
         return None
     try:
-        from gtts import gTTS
-        mp3_path = os.path.join(tempfile.gettempdir(), f"{filename_prefix}_{next(tempfile._get_candidate_names())}.mp3")
+        mp3_path = os.path.join(
+            tempfile.gettempdir(),
+            f"{filename_prefix}_{next(tempfile._get_candidate_names())}.mp3"
+        )
         gTTS(text.strip(), lang="en").save(mp3_path)
         return mp3_path
     except Exception as e:
         st.error(f"TTS failed: {e}")
         return None
 
-def tts_say_single_wav(text: str, fname_prefix: str = "summary_onefile"):
-    """pyttsx3 → single WAV (offline, no chunking)"""
-    if not text or not text.strip():
-        return None
-    try:
-        import pyttsx3
-        engine = pyttsx3.init()
-        engine.setProperty("rate", 180)
-        engine.setProperty("volume", 1.0)
-        wav_path = os.path.join(
-            tempfile.gettempdir(),
-            f"{fname_prefix}_{next(tempfile._get_candidate_names())}.wav"
-        )
-        engine.save_to_file(text, wav_path)
-        engine.runAndWait()
-        return wav_path if os.path.exists(wav_path) else None
-    except Exception as e:
-        st.error(f"TTS failed: {e}")
-        return None
+
+
 
 # ---------------- Quiz helpers ----------------
 def infer_topic_from_question(q: str) -> str:
@@ -317,7 +306,7 @@ def render_summarize():
             st.rerun()
         if make_voice:
             with st.spinner("Generating voice…"):
-                path = tts_say_single_wav(ss.summary_text, "summary_onefile")
+                path = tts_say(ss.summary_text, "summary_onefile")
             if path: ss.summary_audio_path = path
         if ss.summary_audio_path:
             st.audio(ss.summary_audio_path)
@@ -589,7 +578,7 @@ def render_flashcards():
         q, a = ss.flashcards[ss.idx]
         side = "Answer" if ss.flipped else "Question"
         txt = f"{side}: {a if ss.flipped else q}"
-        path = tts_say_single_wav(txt, "flashcard_onefile"); ss.fc_audio_path = path
+        path = tts_say(txt, "flashcard_onefile"); ss.fc_audio_path = path
 
     cards = ss.flashcards
     if cards:
