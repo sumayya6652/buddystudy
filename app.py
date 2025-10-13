@@ -17,6 +17,7 @@ from nlp_tasks import (
     make_report_llm, save_report_pdf  
 
 )
+import base64
 
 # ---------------- Page Config ----------------
 st.set_page_config(page_title="StudyMate — NLP Toolkit", page_icon="🧠", layout="wide")
@@ -247,19 +248,25 @@ def render_home():
 #       </p>
 #     </div>
 #     """, unsafe_allow_html=True)
-    st.markdown("""
+    
+
+# Encode your uploaded image
+with open("ac6b4faa-ec16-498c-91e8-f78acd8cf8c1.png", "rb") as f:
+    img = base64.b64encode(f.read()).decode()
+
+st.markdown(f"""
 <div class="card" style="
     padding: 25px;
     border-radius: 20px;
-    background: #ffffff;
+    background: #f4f5f7;
     box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
     position: relative;
     overflow: hidden;
 ">
-  <!-- Animated book GIF -->
-  <img src="https://cdn-icons-gif.flaticon.com/8722/8722462.gif"
+  <img src="data:image/png;base64,{img}"
        alt="Animated book icon"
-       style="width:140px; position:absolute; right:20px; bottom:10px; transform:rotate(-3deg); opacity:0.95;">
+       style="width:140px; position:absolute; right:20px; bottom:10px; transform:rotate(-3deg); opacity:0.95;
+       background:#f4f5f7; border-radius:12px; padding:5px;">
 
   <h2 style="color:#333; margin-bottom:10px;">Hey there, genius! 🤓</h2>
 
@@ -272,6 +279,7 @@ def render_home():
   </p>
 </div>
 """, unsafe_allow_html=True)
+
 
 
 
@@ -722,6 +730,7 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
 
