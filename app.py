@@ -242,19 +242,19 @@ def render_home():
     <div class="card" style="
     padding: 25px;
     border-radius: 20px;
-    background: #ffffff;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    background: linear-gradient(135deg, #2f3238 0%, #3c3f46 100%);
+    box-shadow: 0px 6px 16px rgba(0,0,0,0.35);
     position: relative;
     overflow: hidden;
 ">
-  <!-- Animated book GIF -->
+  <!-- Subtle animated icon -->
   <img src="https://cdn-icons-gif.flaticon.com/8722/8722462.gif"
        alt="Animated book icon"
-       style="width:140px; position:absolute; right:20px; bottom:10px; transform:rotate(-3deg); opacity:0.95;">
+       style="width:120px; position:absolute; right:25px; bottom:15px; transform:rotate(-5deg); opacity:0.45; filter:grayscale(80%);">
 
-  <h2 style="color:#333; margin-bottom:10px;">Hey there, genius! 🤓</h2>
+  <h2 style="color:#e2e6ec; margin-bottom:10px;">Hey there, genius! 🤓</h2>
 
-  <p style="color:#555; font-size:16px; line-height:1.6; max-width:80%;">
+  <p style="color:#c5c8ce; font-size:16px; line-height:1.6; max-width:80%;">
     Ready to test your brain, break a few neurons, and maybe discover your secret superpower? 💥<br><br>
     Grab your headphones — the 🔊 buttons will narrate the magic for you! 🎧<br><br>
     Before you dive in, pop your name into the left sidebar — your personalized quiz report is waiting to 
@@ -743,6 +743,7 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
 
