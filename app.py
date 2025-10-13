@@ -303,7 +303,7 @@ def render_summarize():
     st.markdown("""
 <div style='background:#262730; padding:22px; border-radius:18px; box-shadow:0 4px 12px rgba(0,0,0,0.35);
             color:#e4e6eb; line-height:1.7;'>
-  <h4 style='color:#ff8fab;'>🧠 How the Summarizer Works</h4>
+  <h4>📄 How the Summarizer Works</h4>
   <p>
     The summarizer reads your uploaded PDF or pasted text and condenses it into a clear, 
     easy-to-read summary using advanced Natural Language Processing techniques.<br><br>
@@ -444,6 +444,19 @@ def render_summarize():
                 )
 def render_quiz():
     st.header("🧩 Quiz")
+    st.markdown("""
+<div style='background:#262730; padding:22px; border-radius:18px; box-shadow:0 4px 12px rgba(0,0,0,0.35);
+            color:#e4e6eb; line-height:1.7;'>
+  <h4 >🧩 How the Quiz Generator Works</h4>
+  <p>
+    The quiz generator automatically creates multiple-choice questions from your notes or lecture slides.
+    You can choose between <b>NLP-based</b> or <b>LLM-based</b> question generation for higher accuracy and relevance.<br><br>
+    Once you finish the quiz, StudyMate instantly evaluates your answers and generates a 
+    <b>personalized PDF report</b> — including your score, performance chart, and topics to revise.
+  </p>
+</div>
+""", unsafe_allow_html=True)
+
     with st.sidebar:
         st.header("Quiz Settings")
         num_q = st.slider("Number of questions", 3, 12, 6, 1)
@@ -586,6 +599,19 @@ def render_quiz():
 
 def render_flashcards():
     st.header("🃏 Flashcards")
+    st.markdown("""
+<div style='background:#262730; padding:22px; border-radius:18px; box-shadow:0 4px 12px rgba(0,0,0,0.35);
+            color:#e4e6eb; line-height:1.7;'>
+  <h4>🃏 About Flashcards</h4>
+  <p>
+    Flashcards are automatically generated from your uploaded content to help you study key terms, 
+    definitions, and important concepts. <br><br>
+    Click <b>Flip</b> to view answers, <b>Next</b> or <b>Prev</b> to navigate, 
+    and <b>🔊 Speak</b> to hear the content read aloud for interactive learning.
+  </p>
+</div>
+""", unsafe_allow_html=True)
+
     with st.sidebar:
         st.header("Flashcard Settings")
         num_cards = st.slider("Number of cards", 3, 15, 6, 1)
@@ -680,6 +706,19 @@ def render_flashcards():
 
 def render_deadlines():
     st.header("📅 Deadlines")
+    st.markdown("""
+<div style='background:#262730; padding:22px; border-radius:18px; box-shadow:0 4px 12px rgba(0,0,0,0.35);
+            color:#e4e6eb; line-height:1.7;'>
+  <h4>📅 How Deadline Extractor Works</h4>
+  <p>
+    The deadline extractor scans through your text or PDF to find dates and timelines mentioned in context —
+    like assignment submissions, exams, or project milestones. <br><br>
+    You can choose between <b>traditional NLP parsing</b> or <b>LLM-based interpretation</b> for smarter recognition.
+    Use the <b>🔊 Speak</b> option to hear upcoming deadlines read aloud, so you never miss an important date!
+  </p>
+</div>
+""", unsafe_allow_html=True)
+
     with st.sidebar:
         st.header("Options")
         ctx_len = st.slider("Context width (chars per side)", 40, 200, 80, 10)
@@ -759,6 +798,7 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
 
