@@ -247,10 +247,7 @@ def render_home():
     position: relative;
     overflow: hidden;
 ">
-  <!-- Subtle animated icon -->
-  <img src="https://cdn-icons-gif.flaticon.com/8722/8722462.gif"
-       alt="Animated book icon"
-       style="width:120px; position:absolute; right:25px; bottom:15px; transform:rotate(-5deg); opacity:0.45; filter:grayscale(80%);">
+  
 
   <h2 style="color:#e2e6ec; margin-bottom:10px;">Hey there, genius! 🤓</h2>
 
@@ -743,6 +740,7 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
 
