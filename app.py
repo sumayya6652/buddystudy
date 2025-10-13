@@ -237,29 +237,22 @@ choice = st.session_state.page
 # =========================
 def render_home():
     st.title("🧠 StudyMate — A Learning Assistant")
-    st.caption("Summarize • Quiz • Flashcards • Deadlines")
+    # st.caption("Summarize • Quiz • Flashcards • Deadlines")
     st.markdown("""
-    <div class="card" style="
-    padding: 25px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, #2f3238 0%, #3c3f46 100%);
-    box-shadow: 0px 6px 16px rgba(0,0,0,0.35);
-    position: relative;
-    overflow: hidden;
-">
-  
-
-  <h2 style="color:#e2e6ec; margin-bottom:10px;">Hey there, genius! 🤓</h2>
-
-  <p style="color:#c5c8ce; font-size:16px; line-height:1.6; max-width:80%;">
-    Ready to test your brain, break a few neurons, and maybe discover your secret superpower? 💥<br><br>
-    Grab your headphones — the 🔊 buttons will narrate the magic for you! 🎧<br><br>
-    Before you dive in, pop your name into the left sidebar — your personalized quiz report is waiting to 
-    <b>roast or praise you</b> (depending on how you do 😉).<br><br>
-    <em>So, are you ready to play? Let’s roll! 🚀</em>
+<div style='background:#262730; padding:25px; border-radius:18px; box-shadow:0 4px 12px rgba(0,0,0,0.35);
+            color:#e4e6eb; line-height:1.7;'>
+  <h3 style='color:#ffb3b3;'>👋 Welcome to StudyMate</h3>
+  <p>
+    Your all-in-one AI-powered academic companion! 🚀<br><br>
+    StudyMate helps you summarize long notes, generate personalized quizzes, 
+    create interactive flashcards, and extract deadlines from academic documents — 
+    all in one clean, intuitive interface. <br><br>
+    Enter your name in the sidebar to track your progress and receive detailed reports 
+    highlighting your strengths and areas for improvement.
   </p>
 </div>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
+
     
 
 # Encode your uploaded image
@@ -763,6 +756,7 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
 
