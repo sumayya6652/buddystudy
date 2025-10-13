@@ -242,15 +242,12 @@ def render_home():
 <div class="card" style="
     padding: 25px;
     border-radius: 20px;
-    background: linear-gradient(135deg, #2f3238 0%, #3c3f46 100%);
-    box-shadow: 0px 6px 16px rgba(0,0,0,0.35);
+     color:#e4e6eb;
+    box-shadow:0 4px 12px rgba(0,0,0,0.35); 
     position: relative;
     overflow: hidden;
 ">
-  <!-- Subtle animated icon -->
-  <img src="https://cdn-icons-gif.flaticon.com/8722/8722462.gif"
-       alt="Animated book icon"
-       style="width:120px; position:absolute; right:25px; bottom:15px; transform:rotate(-5deg); opacity:0.45; filter:grayscale(80%);">
+  
 
   <h2 style="color:#e2e6ec; margin-bottom:10px;">Hey there, genius! 🤓</h2>
 
@@ -768,6 +765,7 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
 
