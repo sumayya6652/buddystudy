@@ -235,8 +235,8 @@ choice = st.session_state.page
 # Page Renderers
 # =========================
 def render_home():
-    st.title("🧠 StudyMate — NLP Toolkit")
-    st.caption("Summarize • Quiz • Flashcards • Deadlines")
+    st.title("🧠 StudyMate — A Learning Assistant")
+    # st.caption("Summarize • Quiz • Flashcards • Deadlines")
     st.markdown("""
     <div class="card">
       <h3>Hey there!!</h3>
@@ -692,5 +692,6 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
