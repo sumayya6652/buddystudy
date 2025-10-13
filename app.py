@@ -251,7 +251,7 @@ def render_home():
     <div class="card" style="
         padding: 25px;
         border-radius: 20px;
-        background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+        background:  #ffffff;
         box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
         position: relative;
         overflow: hidden;
@@ -721,6 +721,7 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
 
