@@ -239,14 +239,29 @@ def render_home():
     st.title("🧠 StudyMate — A Learning Assistant")
     st.caption("Summarize • Quiz • Flashcards • Deadlines")
     st.markdown("""
-    <div class="card">
-      <h3>Hey there!!</h3>
-      <p class="small-muted">
-          Ready to test your brain, break a few neurons, and maybe discover your secret superpower?
-Grab your headphones , the 🔊 buttons will narrate the magic for you.
-Before you dive in, pop your name into the left sidebar  and  your personalized quiz report is waiting to roast or praise you (depending on how you do 😉).
-      </p>
-    </div>
+    <div class="card" style="
+    padding: 25px;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+">
+  <!-- Animated book GIF -->
+  <img src="https://cdn-icons-gif.flaticon.com/8722/8722462.gif"
+       alt="Animated book icon"
+       style="width:140px; position:absolute; right:20px; bottom:10px; transform:rotate(-3deg); opacity:0.95;">
+
+  <h2 style="color:#333; margin-bottom:10px;">Hey there, genius! 🤓</h2>
+
+  <p style="color:#555; font-size:16px; line-height:1.6; max-width:80%;">
+    Ready to test your brain, break a few neurons, and maybe discover your secret superpower? 💥<br><br>
+    Grab your headphones — the 🔊 buttons will narrate the magic for you! 🎧<br><br>
+    Before you dive in, pop your name into the left sidebar — your personalized quiz report is waiting to 
+    <b>roast or praise you</b> (depending on how you do 😉).<br><br>
+    <em>So, are you ready to play? Let’s roll! 🚀</em>
+  </p>
+</div>
     """, unsafe_allow_html=True)
     
 
@@ -728,6 +743,7 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
 
