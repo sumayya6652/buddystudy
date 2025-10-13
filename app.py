@@ -299,21 +299,27 @@ def render_home():
 def render_summarize():
     st.header("📄 Summarizer")
     st.markdown("""
-<div style='background: linear-gradient(135deg, #2f3238 0%, #3c3f46 100%);
-            padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            color: #d6d9de; line-height: 1.7;'>
-  <h4 style='color:#ffffff;'>🧠 How the Summarizer Works</h4>
-  <p>
+<div style='background: #2b2d31;
+            padding: 22px;
+            border-radius: 18px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            color: #e4e6eb;
+            line-height: 1.7;
+            margin-bottom: 15px;'>
+  <h4 style='color:#ff8fab;'>🧠 How the Summarizer Works</h4>
+  <p style='font-size:16px;'>
     The summarizer takes your uploaded PDF or pasted text and intelligently condenses it into a concise,
     easy-to-read summary. You can choose between three modes:
-    <b>Extractive</b> (fast, selects key sentences), <b>Neural</b> (uses transformers for natural phrasing),
+    <b>Extractive</b> (fast, selects key sentences),
+    <b>Neural</b> (uses transformers for natural phrasing),
     or <b>LLM-based</b> (powered by GPT for deep contextual understanding).<br><br>
-    The system automatically detects the most important concepts, removes redundancy, and generates
-    clear explanations in seconds — helping you revise long notes or research papers effortlessly.
-    You can even listen to your summary with the <b>🔊 Voice button</b> for an immersive learning experience!
+    It automatically identifies the most important ideas, eliminates redundancy, and produces
+    clear, human-like summaries — helping you revise long notes or research papers effortlessly.
+    You can even listen to your summary using the <b>🔊 Voice button</b> for a more interactive learning experience!
   </p>
 </div>
 """, unsafe_allow_html=True)
+
 
     with st.sidebar:
         st.header("Summarizer Settings")
@@ -757,6 +763,7 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
 
