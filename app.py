@@ -237,16 +237,41 @@ choice = st.session_state.page
 def render_home():
     st.title("🧠 StudyMate — A Learning Assistant")
     # st.caption("Summarize • Quiz • Flashcards • Deadlines")
+#     st.markdown("""
+#     <div class="card">
+#       <h3>Hey there!!</h3>
+#       <p class="small-muted">
+#           Ready to test your brain, break a few neurons, and maybe discover your secret superpower?
+# Grab your headphones , the 🔊 buttons will narrate the magic for you.
+# Before you dive in, pop your name into the left sidebar  and  your personalized quiz report is waiting to roast or praise you (depending on how you do 😉).
+#       </p>
+#     </div>
+#     """, unsafe_allow_html=True)
     st.markdown("""
-    <div class="card">
-      <h3>Hey there!!</h3>
-      <p class="small-muted">
-          Ready to test your brain, break a few neurons, and maybe discover your secret superpower?
-Grab your headphones , the 🔊 buttons will narrate the magic for you.
-Before you dive in, pop your name into the left sidebar  and  your personalized quiz report is waiting to roast or praise you (depending on how you do 😉).
-      </p>
-    </div>
-    """, unsafe_allow_html=True)
+<div class="card" style="
+    padding: 25px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+">
+  <img src="https://i.imgur.com/jb1XgrH.png" 
+       alt="Person leaning with book"
+       style="width:150px; position:absolute; right:20px; bottom:10px; transform:rotate(-5deg); opacity:0.9;">
+
+  <h2 style="color:#333; margin-bottom:10px;">Hey there, genius! 🤓</h2>
+
+  <p style="color:#555; font-size:16px; line-height:1.6; max-width:80%;">
+    Ready to test your brain, break a few neurons, and maybe discover your secret superpower? 💥<br><br>
+    Grab your headphones — the 🔊 buttons will narrate the magic for you! 🎧<br><br>
+    Before you dive in, pop your name into the left sidebar — your personalized quiz report is waiting to 
+    <b>roast or praise you</b> (depending on how you do 😉).<br><br>
+    <em>So, are you ready to play? Let’s roll! 🚀</em>
+  </p>
+</div>
+""", unsafe_allow_html=True)
+
 
 def render_summarize():
     st.header("📄 Summarizer")
@@ -692,6 +717,7 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
 
