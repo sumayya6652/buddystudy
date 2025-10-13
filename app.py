@@ -298,6 +298,23 @@ def render_home():
 
 def render_summarize():
     st.header("📄 Summarizer")
+    st.markdown("""
+<div style='background: linear-gradient(135deg, #2f3238 0%, #3c3f46 100%);
+            padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            color: #d6d9de; line-height: 1.7;'>
+  <h4 style='color:#ffffff;'>🧠 How the Summarizer Works</h4>
+  <p>
+    The summarizer takes your uploaded PDF or pasted text and intelligently condenses it into a concise,
+    easy-to-read summary. You can choose between three modes:
+    <b>Extractive</b> (fast, selects key sentences), <b>Neural</b> (uses transformers for natural phrasing),
+    or <b>LLM-based</b> (powered by GPT for deep contextual understanding).<br><br>
+    The system automatically detects the most important concepts, removes redundancy, and generates
+    clear explanations in seconds — helping you revise long notes or research papers effortlessly.
+    You can even listen to your summary with the <b>🔊 Voice button</b> for an immersive learning experience!
+  </p>
+</div>
+""", unsafe_allow_html=True)
+
     with st.sidebar:
         st.header("Summarizer Settings")
         engine_choice = st.radio("Engine", ["extractive (instant)", "neural (abstractive)", "llm (OpenAI)"], index=0)
@@ -740,6 +757,7 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
 
