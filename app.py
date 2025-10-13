@@ -303,7 +303,7 @@ def render_summarize():
     st.markdown("""
 <div style='background:#262730; padding:22px; border-radius:18px; box-shadow:0 4px 12px rgba(0,0,0,0.35);
             color:#e4e6eb; line-height:1.7;'>
-  <h4>📄 How the Summarizer Works</h4>
+  <h4>How the Summarizer Works</h4>
   <p>
     The summarizer reads your uploaded PDF or pasted text and condenses it into a clear, 
     easy-to-read summary using advanced Natural Language Processing techniques.<br><br>
@@ -447,7 +447,7 @@ def render_quiz():
     st.markdown("""
 <div style='background:#262730; padding:22px; border-radius:18px; box-shadow:0 4px 12px rgba(0,0,0,0.35);
             color:#e4e6eb; line-height:1.7;'>
-  <h4 >🧩 How the Quiz Generator Works</h4>
+  <h4 >How the Quiz Generator Works</h4>
   <p>
     The quiz generator automatically creates multiple-choice questions from your notes or lecture slides.
     You can choose between <b>NLP-based</b> or <b>LLM-based</b> question generation for higher accuracy and relevance.<br><br>
@@ -602,7 +602,7 @@ def render_flashcards():
     st.markdown("""
 <div style='background:#262730; padding:22px; border-radius:18px; box-shadow:0 4px 12px rgba(0,0,0,0.35);
             color:#e4e6eb; line-height:1.7;'>
-  <h4>🃏 About Flashcards</h4>
+  <h4>About Flashcards</h4>
   <p>
     Flashcards are automatically generated from your uploaded content to help you study key terms, 
     definitions, and important concepts. <br><br>
@@ -709,7 +709,7 @@ def render_deadlines():
     st.markdown("""
 <div style='background:#262730; padding:22px; border-radius:18px; box-shadow:0 4px 12px rgba(0,0,0,0.35);
             color:#e4e6eb; line-height:1.7;'>
-  <h4>📅 How Deadline Extractor Works</h4>
+  <h4>How Deadline Extractor Works</h4>
   <p>
     The deadline extractor scans through your text or PDF to find dates and timelines mentioned in context —
     like assignment submissions, exams, or project milestones. <br><br>
@@ -798,6 +798,7 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
 
