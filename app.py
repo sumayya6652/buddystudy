@@ -256,9 +256,9 @@ def render_home():
     position: relative;
     overflow: hidden;
 ">
-  <img src="https://cdn-icons-png.flaticon.com/512/706/706195.png"
-       alt="Person leaning with book"
-       style="width:125px; position:absolute; right:20px; bottom:10px; transform:rotate(-4deg); opacity:0.95;">
+  <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png"
+       alt="Person reading a book"
+       style="width:130px; position:absolute; right:20px; bottom:10px; transform:rotate(-3deg); opacity:0.95;">
 
   <h2 style="color:#333; margin-bottom:10px;">Hey there, genius! 🤓</h2>
 
@@ -271,6 +271,7 @@ def render_home():
   </p>
 </div>
 """, unsafe_allow_html=True)
+
 
 
 
@@ -718,6 +719,7 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
 
