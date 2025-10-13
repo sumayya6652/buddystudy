@@ -237,17 +237,17 @@ choice = st.session_state.page
 # =========================
 def render_home():
     st.title("🧠 StudyMate — A Learning Assistant")
-    # st.caption("Summarize • Quiz • Flashcards • Deadlines")
-#     st.markdown("""
-#     <div class="card">
-#       <h3>Hey there!!</h3>
-#       <p class="small-muted">
-#           Ready to test your brain, break a few neurons, and maybe discover your secret superpower?
-# Grab your headphones , the 🔊 buttons will narrate the magic for you.
-# Before you dive in, pop your name into the left sidebar  and  your personalized quiz report is waiting to roast or praise you (depending on how you do 😉).
-#       </p>
-#     </div>
-#     """, unsafe_allow_html=True)
+    st.caption("Summarize • Quiz • Flashcards • Deadlines")
+    st.markdown("""
+    <div class="card">
+      <h3>Hey there!!</h3>
+      <p class="small-muted">
+          Ready to test your brain, break a few neurons, and maybe discover your secret superpower?
+Grab your headphones , the 🔊 buttons will narrate the magic for you.
+Before you dive in, pop your name into the left sidebar  and  your personalized quiz report is waiting to roast or praise you (depending on how you do 😉).
+      </p>
+    </div>
+    """, unsafe_allow_html=True)
     
 
 # Encode your uploaded image
@@ -728,6 +728,7 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
 
