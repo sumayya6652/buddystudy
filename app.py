@@ -301,26 +301,20 @@ def render_home():
 def render_summarize():
     st.header("📄 Summarizer")
     st.markdown("""
-<div style='background: #2b2d31;
-            padding: 22px;
-            border-radius: 18px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            color: #e4e6eb;
-            line-height: 1.7;
-            margin-bottom: 15px;'>
+<div style='background:#262730; padding:22px; border-radius:18px; box-shadow:0 4px 12px rgba(0,0,0,0.35);
+            color:#e4e6eb; line-height:1.7;'>
   <h4 style='color:#ff8fab;'>🧠 How the Summarizer Works</h4>
-  <p style='font-size:16px;'>
-    The summarizer takes your uploaded PDF or pasted text and intelligently condenses it into a concise,
-    easy-to-read summary. You can choose between three modes:
-    <b>Extractive</b> (fast, selects key sentences),
-    <b>Neural</b> (uses transformers for natural phrasing),
-    or <b>LLM-based</b> (powered by GPT for deep contextual understanding).<br><br>
-    It automatically identifies the most important ideas, eliminates redundancy, and produces
-    clear, human-like summaries — helping you revise long notes or research papers effortlessly.
-    You can even listen to your summary using the <b>🔊 Voice button</b> for a more interactive learning experience!
+  <p>
+    The summarizer reads your uploaded PDF or pasted text and condenses it into a clear, 
+    easy-to-read summary using advanced Natural Language Processing techniques.<br><br>
+    You can choose between <b>Extractive</b> (quick and keyword-based), 
+    <b>Neural</b> (transformer-driven for smoother phrasing), or 
+    <b>LLM-based</b> (GPT-powered with contextual reasoning).<br><br>
+    Use the <b>🔊 Voice button</b> to listen to your summary — perfect for auditory learners and multitaskers!
   </p>
 </div>
 """, unsafe_allow_html=True)
+
 
 
     with st.sidebar:
@@ -765,6 +759,7 @@ elif choice == "Flashcards":
     render_flashcards()
 elif choice == "Deadlines":
     render_deadlines()
+
 
 
 
