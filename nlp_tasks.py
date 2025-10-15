@@ -16,13 +16,21 @@
 import os, re, time, json, tempfile, textwrap, hashlib, concurrent.futures
 from typing import List, Dict, Any, Optional
 from datetime import datetime
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+from reportlab.lib.enums import TA_LEFT
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, ListFlowable, ListItem, PageBreak
+from reportlab.lib.units import cm
+import re
+from datetime import datetime
 
 # =========================
 # OpenAI clien
 #  (with fallback to hard-coded key)
 # =========================
 OPENAI_MODEL_DEFAULT = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
-OPENAI_API_KEY_HARDCODED = ""   # <- put your key here for local use
+OPENAI_API_KEY_HARDCODED = ""
 
 def _get_openai_client():
     from openai import OpenAI
@@ -532,44 +540,170 @@ def make_report_llm(notes_text: str, topic: Optional[str] = None, max_sources: i
 # =========================
 # Save Markdown → PDF (simple)
 # =========================
-def save_report_pdf(markdown_text: str, pdf_path: str):
+# ---- Pretty PDF rendering for the Summary Report (ReportLab Platypus) ----
+
+
+def save_report_pdf(md_text: str, out_path: str, title: str = "Study Report"):
     """
-    Minimal Markdown-to-PDF using reportlab. (No images/links rendering.)
-    Produces a clean, printable study handout.
+    Render a Markdown-ish report to a clean PDF using ReportLab Platypus.
+    Supports:
+      - #, ##, ### headings
+      - normal paragraphs
+      - bullet lists (-, •, *)
+      - numbered lists (1., 2., 3.)
+      - **bold** and *italic* (basic)
+    Produces generous spacing like the in-app view.
     """
-    from reportlab.pdfgen import canvas
-    from reportlab.lib.pagesizes import A4
-    from reportlab.lib.units import cm
 
-    # strip basic MD symbols for PDF text layout
-    txt = markdown_text or ""
-    txt = re.sub(r"`{1,3}.*?`{1,3}", " ", txt)
-    txt = re.sub(r"\[(.*?)\]\((.*?)\)", r"\1", txt)
-    txt = re.sub(r"^#+\s*", "", txt, flags=re.M)
-    txt = re.sub(r"[*_~>#-]+", " ", txt)
-    txt = re.sub(r"\s+", " ", txt).strip()
+    # ---------- Styles ----------
+    ss = getSampleStyleSheet()
 
-    c = canvas.Canvas(pdf_path, pagesize=A4)
-    W, H = A4
-    x, y = 2*cm, H - 2*cm
-    c.setTitle("Study Report")
+    base_color = colors.HexColor("#111317")   # page bg band (header)
+    text_color = colors.HexColor("#111111")   # paragraph color
+    h_color    = colors.HexColor("#0f172a")   # headings
+    accent     = colors.HexColor("#475569")   # small meta text
 
-    # Title
-    c.setFont("Helvetica-Bold", 16)
-    c.drawString(x, y, "Study Report"); y -= 22
-    c.setFont("Helvetica", 9)
-    c.drawString(x, y, f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}"); y -= 16
+    H1 = ParagraphStyle(
+        "H1", parent=ss["Heading1"],
+        fontName="Helvetica-Bold", fontSize=24, leading=30,
+        spaceBefore=6, spaceAfter=14, textColor=h_color
+    )
+    H2 = ParagraphStyle(
+        "H2", parent=ss["Heading2"],
+        fontName="Helvetica-Bold", fontSize=18, leading=24,
+        spaceBefore=16, spaceAfter=10, textColor=h_color
+    )
+    H3 = ParagraphStyle(
+        "H3", parent=ss["Heading3"],
+        fontName="Helvetica-Bold", fontSize=14, leading=20,
+        spaceBefore=12, spaceAfter=8, textColor=h_color
+    )
+    Body = ParagraphStyle(
+        "Body", parent=ss["BodyText"],
+        fontName="Helvetica", fontSize=11.5, leading=16,
+        spaceBefore=0, spaceAfter=10, textColor=text_color
+    )
+    Meta = ParagraphStyle(
+        "Meta", parent=Body, fontSize=9.5, textColor=accent, spaceAfter=12
+    )
+    BulletStyle = ParagraphStyle(
+        "Bullet", parent=Body, leftIndent=14, bulletIndent=6, spaceBefore=0, spaceAfter=6
+    )
 
-    c.setFont("Helvetica", 11)
-    width_chars = 100  # wrap approx
-    for para in txt.split("\n"):
-        lines = textwrap.wrap(para, width=width_chars) if para.strip() else [""]
-        for line in lines:
-            c.drawString(x, y, line); y -= 14
-            if y < 3*cm:
-                c.showPage()
-                y = H - 2*cm
-                c.setFont("Helvetica", 11)
-        y -= 4
+    # ---------- Simple markdown → blocks parser ----------
+    def md_to_blocks(md: str):
+        """
+        Split into logical blocks with types: h1/h2/h3/ul/ol/p.
+        Keeps consecutive list items grouped.
+        """
+        lines = [ln.rstrip() for ln in (md or "").splitlines()]
+        i, n = 0, len(lines)
+        blocks = []
 
-    c.save()
+        def _flush_list(kind, buf):
+            if buf:
+                blocks.append((kind, buf[:]))
+                buf.clear()
+
+        ul_buf, ol_buf = [], []
+
+        while i < n:
+            ln = lines[i]
+
+            # headings
+            if re.match(r"^#{1}\s+", ln):
+                _flush_list("ul", ul_buf); _flush_list("ol", ol_buf)
+                blocks.append(("h1", ln.lstrip("# ").strip()))
+            elif re.match(r"^#{2}\s+", ln):
+                _flush_list("ul", ul_buf); _flush_list("ol", ol_buf)
+                blocks.append(("h2", ln.lstrip("# ").strip()))
+            elif re.match(r"^#{3}\s+", ln):
+                _flush_list("ul", ul_buf); _flush_list("ol", ol_buf)
+                blocks.append(("h3", ln.lstrip("# ").strip()))
+
+            # unordered list items
+            elif re.match(r"^\s*([-*•])\s+", ln):
+                _flush_list("ol", ol_buf)
+                ul_buf.append(re.sub(r"^\s*([-*•])\s+", "", ln).strip())
+
+            # ordered list items
+            elif re.match(r"^\s*\d+\.\s+", ln):
+                _flush_list("ul", ul_buf)
+                ol_buf.append(re.sub(r"^\s*\d+\.\s+", "", ln).strip())
+
+            # blank line: flush any pending lists and add spacer paragraph break
+            elif ln.strip() == "":
+                _flush_list("ul", ul_buf); _flush_list("ol", ol_buf)
+                blocks.append(("blank", ""))
+
+            else:
+                _flush_list("ul", ul_buf); _flush_list("ol", ol_buf)
+                blocks.append(("p", ln.strip()))
+            i += 1
+
+        # flush trailing list buffers
+        _flush_list("ul", ul_buf); _flush_list("ol", ol_buf)
+        return blocks
+
+    # allow **bold** and *italic* via minimal HTML tags for Paragraph
+    def inline_format(s: str) -> str:
+        s = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", s)
+        s = re.sub(r"\*(.+?)\*", r"<i>\1</i>", s)
+        s = s.replace("  ", " ")
+        return s
+
+    # ---------- Build the PDF ----------
+    doc = SimpleDocTemplate(
+        out_path, pagesize=A4,
+        leftMargin=2.0*cm, rightMargin=2.0*cm,
+        topMargin=1.6*cm, bottomMargin=1.8*cm,
+        title=title
+    )
+    story = []
+
+    # Header band + title
+    story.append(Paragraph(title, H1))
+    story.append(Paragraph(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}", Meta))
+    story.append(Spacer(1, 0.15*cm))
+
+    blocks = md_to_blocks(md_text)
+
+    # coalesce consecutive "p" lines into paragraphs
+    para_buf = []
+    def flush_para():
+        if para_buf:
+            story.append(Paragraph(inline_format(" ".join(para_buf)), Body))
+            para_buf.clear()
+
+    for kind, payload in blocks:
+        if kind == "blank":
+            flush_para()
+            story.append(Spacer(1, 0.15*cm))
+            continue
+
+        if kind in ("h1", "h2", "h3"):
+            flush_para()
+            style = H1 if kind == "h1" else H2 if kind == "h2" else H3
+            story.append(Paragraph(inline_format(payload), style))
+            continue
+
+        if kind == "p":
+            para_buf.append(payload)
+            continue
+
+        if kind in ("ul", "ol"):
+            flush_para()
+            items = []
+            for it in payload:
+                items.append(ListItem(Paragraph(inline_format(it), Body), leftIndent=6, value=None))
+            story.append(ListFlowable(
+                items,
+                bulletType="bullet" if kind == "ul" else "1",
+                start="1", bulletFontName="Helvetica",
+                bulletFontSize=11, bulletColor=colors.HexColor("#374151"),
+                leftIndent=12, spaceBefore=2, spaceAfter=8
+            ))
+            continue
+
+    flush_para()
+    doc.build(story)
