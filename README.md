@@ -71,6 +71,7 @@ Question Generation	LLM-based QG + distractor generation
 Flashcard Creation	Semantic keyword detection + answer pairing
 Deadline Extraction	NER + dateparser + LLM contextual refinement
 TTS & Reporting	gTTS voice synthesis, ReportLab PDF styling
+
 📊 Folder Structure
 StudyMate/
 │
@@ -78,7 +79,6 @@ StudyMate/
 │   ├── app.py                  # Main Streamlit UI
 │   ├── nlp_tasks.py            # Core NLP + LLM logic
 │   ├── ui_utils.py             # Shared CSS and uploader utilities
-│   └── assets/                 # (optional) icons, gifs, or images
 │
 ├── requirements.txt
 ├── README.md
@@ -108,6 +108,7 @@ Modular Streamlit design supports rapid iteration for future NLP features.
 
 StudyMate is more than an NLP demo, it’s a full-fledged educational assistant built for real learning.
 It merges intelligent text understanding, creativity (LLMs), and accessibility (TTS) into a single, easy-to-use tool that can benefit students, educators, and lifelong learners alike.
+
 
 
 
