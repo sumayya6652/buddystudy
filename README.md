@@ -110,6 +110,4 @@ StudyMate is more than an NLP demo, it’s a full-fledged educational assistant 
 It merges intelligent text understanding, creativity (LLMs), and accessibility (TTS) into a single, easy-to-use tool that can benefit students, educators, and lifelong learners alike.
 
 
-ReportLab
 
-Streamlit Docs
