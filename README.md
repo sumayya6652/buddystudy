@@ -2,7 +2,7 @@
 
 StudyMate is an intelligent learning assistant that transforms academic notes or PDFs into structured, interactive study material using advanced Natural Language Processing (NLP) and Large Language Models (LLMs).
 
-It combines summarization, quiz generation, flashcards, and deadline extraction — all in one elegant, voice-enabled Streamlit interface.
+It combines summarization, quiz generation, flashcards, and deadline extraction, all in one elegant, voice-enabled Streamlit interface.
 
 🚀 Features
 Feature	Description
@@ -27,7 +27,7 @@ PDF Generation	reportlab, matplotlib (for charts)
 Web Scraping (optional)	ddgs + trafilatura
 ⚙️ Installation & Setup
 1️⃣ Clone the repository
-git clone https://github.com/your-username/studymate.git
+git clone (https://github.com/sumayya6652/buddystudy)
 cd studymate
 
 2️⃣ Install dependencies
@@ -74,14 +74,13 @@ TTS & Reporting	gTTS voice synthesis, ReportLab PDF styling
 
 📊 Folder Structure
 StudyMate/
-│
-├── src/
-│   ├── app.py                  # Main Streamlit UI
-│   ├── nlp_tasks.py            # Core NLP + LLM logic
-│   ├── ui_utils.py             # Shared CSS and uploader utilities
-│
-├── requirements.txt
-├── README.md
+src/
+app.py                  # Main Streamlit UI
+nlp_tasks.py            # Core NLP + LLM logic
+ui_utils.py             # Shared CSS and uploader utilities
+
+requirements.txt        #Requirements
+README.md               #this file
 
 
 🧾 Project Objectives & Scope
@@ -108,6 +107,7 @@ Modular Streamlit design supports rapid iteration for future NLP features.
 
 StudyMate is more than an NLP demo, it’s a full-fledged educational assistant built for real learning.
 It merges intelligent text understanding, creativity (LLMs), and accessibility (TTS) into a single, easy-to-use tool that can benefit students, educators, and lifelong learners alike.
+
 
 
 
