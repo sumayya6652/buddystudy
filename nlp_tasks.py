@@ -2,9 +2,7 @@
 
 
 
-# nlp_tasks.py — core NLP + LLM + web helpers for StudyMate
-# ----------------------------------------------------------
-# Features:
+# nlp_task
 #  - summarize(): extractive / neural / llm
 #  - make_mcq(), make_mcq_llm()
 #  - make_flashcards(), make_flashcards_llm()
@@ -707,3 +705,4 @@ def save_report_pdf(md_text: str, out_path: str, title: str = "Study Report"):
 
     flush_para()
     doc.build(story)
+
